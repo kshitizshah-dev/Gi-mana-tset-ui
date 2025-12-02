@@ -36,6 +36,7 @@ export default function InfoModal({ visible, onClose }: InfoModalProps) {
           Memory usage shows the amount of RAM being used. Nodes with insufficient memory may fail to process requests efficiently, leading to service degradation.
         </Paragraph>
 
+
         <Divider />
 
         <Title level={4}>4. Nodes</Title>

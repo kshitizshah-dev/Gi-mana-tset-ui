@@ -56,7 +56,7 @@ interface TroubleButtonProps {
   steps: string[];
 }
 
-export function TroubleButton({ factor, status, steps }: TroubleButtonProps) {
+export function TroubleButton1({ factor, status, steps }: TroubleButtonProps) {
   const [visible, setVisible] = useState(false);
 
   // Only show button if status is red

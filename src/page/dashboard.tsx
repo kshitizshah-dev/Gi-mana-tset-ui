@@ -1,5 +1,5 @@
 
-import { Button, Card, Typography, Row, Col } from "antd";
+import { Card, Typography } from "antd";
 import ChannelList from "./channel/channel";
 
 const { Title } = Typography;
@@ -23,6 +23,7 @@ const channelsData = [
       { factor: "Node Status", status: "Issue", details: "Pod ssai-node-1 is unhealthy" },
       { factor: "Source Status", status: "OK", details: "Source URL responding" },
       { factor: "Total Active Viewers", status: "OK", details: "1200 viewers" },
+      { factor: "owner", name: "OK", details: "Kshitiz" },
     ],
     podName: "cuemana-in-3e20fe68-fa8b-461c-adc1-a4c05f3be761-6587fbfd66r8x2v",
     logs: `Sample pod logs for Channel 1...`,
@@ -37,6 +38,7 @@ const channelsData = [
     insertionRate: "32.5k",
     fillRate: "89%",
     impressionRate: "28.9k",
+    owner: "Anish",
     rca: [
       { factor: "Redis Status", status: "Issue", details: "Latency: 12ms" },
       { factor: "CPU Status", status: "OK", details: "Usage: 45%" },
@@ -44,6 +46,7 @@ const channelsData = [
       { factor: "Node Status", status: "Issue", details: "All nodes healthy" },
       { factor: "Source Status", status: "OK", details: "Source URL responding" },
       { factor: "Total Active Viewers", status: "OK", details: "1200 viewers" },
+      { factor: "owner", name: "OK", details: "Anish" },
     ],
     podName: "cuemana-in-2",
     logs: `Sample pod logs for Channel 2...`,
@@ -60,20 +63,7 @@ export default function Dashboard() {
       </Card>
 
       {/* Support Actions */}
-      <Card style={{ marginTop: 20 }}>
-        <Title level={4}>Support Actions</Title>
-        <Row gutter={[16, 16]}>
-          <Col>
-            <Button type="primary">Auto-Resolve Issues (Scan Infrastructure)</Button>
-          </Col>
-          <Col>
-            <Button type="default">Redirect to Source (Bypass SSAI)</Button>
-          </Col>
-          <Col>
-            <Button type="default">Notify Team</Button>
-          </Col>
-        </Row>
-      </Card>
+
     </div>
   );
 }

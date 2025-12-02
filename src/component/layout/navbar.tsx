@@ -12,6 +12,7 @@ import {
 } from "@ant-design/icons";
 import RedisLogsModal from "../navbarsubcomp/redislog";
 import { useNavigate } from "react-router-dom";
+import { Table } from "antd";
 
 const { Text } = Typography;
 
@@ -48,6 +49,7 @@ export default function NavbarStatus() {
   const breaksStatus: any = "CHECK!";
 
   const overallRedisStatus = clusters.some(c => c.redis.some(r => r.status !== "Running")) ? "error" : "success";
+  
 
   // Redis Popover
   const redisPopoverContent = (
@@ -127,29 +129,53 @@ export default function NavbarStatus() {
     </div>
   );
 
-  const viewersContent = (
-    <div style={{ maxHeight: 300, overflowY: "auto", width: 300 }}>
-      <Text strong>Viewer Activity:</Text>
-      <ul style={{ marginLeft: 16 }}>
-        <li>
-          <span style={{ cursor: "pointer", color: "#1890ff" }} onClick={() => navigate("/channel/1")}>
-            Channel 1: 1200 viewers
-          </span>
-        </li>
-        <li>
-          <span style={{ cursor: "pointer", color: "#1890ff" }} onClick={() => navigate("/channel/2")}>
-            Channel 2: 980 viewers
-          </span>
-        </li>
-        <li>
-          <span style={{ cursor: "pointer", color: "#1890ff" }} onClick={() => navigate("/channel/3")}>
-            Channel 3: 500 viewers
-          </span>
-        </li>
-      </ul>
-      {viewersStatus === "SPIKE!" && <Text type="danger">Spike detected in Channel 1!</Text>}
-    </div>
-  );
+const viewersContent = (
+  <div style={{ maxHeight: 300, overflowY: "auto", width: 350 }}>
+    <Text strong>Viewer Count (Previous vs Current)</Text>
+
+    <Table
+      size="small"
+      pagination={false}
+      style={{ marginTop: 10 }}
+      columns={[
+        {
+          title: "Channel",
+          dataIndex: "channel",
+        },
+        {
+          title: "Previous",
+          dataIndex: "previous",
+        },
+        {
+          title: "Current",
+          dataIndex: "current",
+        },
+        {
+          title: "Change",
+          dataIndex: "change",
+          render: (val) => (
+            <Text type={val > 0 ? "danger" : "success"}>
+              {val > 0 ? "+" : ""}
+              {val}
+            </Text>
+          ),
+        },
+      ]}
+      dataSource={[
+        { channel: "Channel 1", previous: 950, current: 1200, change: 250 },
+        { channel: "Channel 2", previous: 900, current: 980, change: 80 },
+        { channel: "Channel 3", previous: 510, current: 500, change: -10 },
+      ]}
+      rowKey="channel"
+    />
+
+    {viewersStatus === "SPIKE!" && (
+      <Text type="danger" style={{ marginTop: 8, display: "block" }}>
+        Spike detected in Channel 1!
+      </Text>
+    )}
+  </div>
+);
 
   const breaksContent = (
     <div style={{ maxHeight: 300, overflowY: "auto", width: 300 }}>
