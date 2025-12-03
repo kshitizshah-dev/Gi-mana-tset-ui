@@ -22,6 +22,7 @@ import {
 } from "@ant-design/icons";
 import { useLocation } from "react-router-dom";
 
+
 const { Title, Text, Paragraph } = Typography;
 const { Option } = Select;
 
@@ -57,6 +58,7 @@ type Channel = {
   rca: RCAItem[];
   podName: string;
   logs: string;
+  email?: string;
   owner: string;
 };
 
@@ -77,6 +79,7 @@ export const sampleChannelsData: Channel[] = [
     owner: "Anish",
     lastChecked: "2025-12-01 12:03:32",
     ssaiStatus: "Healthy",
+    email: "anish@gmail.com",
     viewerCount: 1200,
     insertionRate: "41.5k",
     fillRate: "95%",
@@ -100,6 +103,7 @@ export const sampleChannelsData: Channel[] = [
     ssaiStatus: "Healthy",
     viewerCount: 1500,
     owner: "Kshitiz",
+    email:"kshitiz@gmail.com",
     insertionRate: "38.2k",
     fillRate: "93%",
     impressionRate: "35.5k",
@@ -121,6 +125,7 @@ export const sampleChannelsData: Channel[] = [
     lastChecked: "2025-12-01 12:03:32",
     ssaiStatus: "Healthy",
     viewerCount: 800,
+    email: "anish@gmail.com",
     owner: "Anish",
     insertionRate: "28.0k",
     fillRate: "87%",
@@ -144,6 +149,7 @@ export const sampleChannelsData: Channel[] = [
     ssaiStatus: "Healthy",
     viewerCount: 1500,
     owner: "Kshitiz",
+        email:"kshitiz@gmail.com",
     insertionRate: "38.2k",
     fillRate: "93%",
     impressionRate: "35.5k",
@@ -166,6 +172,7 @@ export const sampleChannelsData: Channel[] = [
     ssaiStatus: "Healthy",
     viewerCount: 1500,
     owner: "Kshitiz",
+        email:"kshitiz@gmail.com",
     insertionRate: "38.2k",
     fillRate: "93%",
     impressionRate: "35.5k",
@@ -188,6 +195,7 @@ export const sampleChannelsData: Channel[] = [
     ssaiStatus: "Healthy",
     viewerCount: 1500,
     owner: "Kshitiz",
+    email:"kshitiz@gmail.com",
     insertionRate: "38.2k",
     fillRate: "93%",
     impressionRate: "35.5k",
@@ -505,24 +513,79 @@ function ExpandedRowContent({
             Check Logs
           </Button>
 
-           <Button type="primary" onClick={() => setVisible(true)}>
-        Show Email
+<Button type="primary" onClick={() => setVisible(true)}>
+        Compose Email
       </Button>
 
       <Modal
-        title="Demo Email"
         open={visible}
         onCancel={() => setVisible(false)}
         footer={null}
-        width={400}
+        width={600}
+        title={null}
         centered
+        styles={{ body: { padding: 0 } }}
       >
-        <img
-          src="/email.png" // replace with your email image path
-          alt="Demo Email"
-          style={{ width: "100%", borderRadius: 8 }}
-        />
+        <div className="w-full bg-white rounded-md shadow-lg font-sans">
+
+          {/* Gmail Compose Header */}
+          <div className="flex justify-between items-center px-4 py-2 border-b bg-gray-100">
+            <span className="font-medium text-gray-800">New Message</span>
+            <button
+              className="text-gray-500 hover:text-black"
+              onClick={() => setVisible(false)}
+            >
+              ✕
+            </button>
+          </div>
+
+          {/* Fields */}
+          <div className="px-4 py-2 space-y-2">
+
+            {/* To */}
+            <div className="flex items-center border-b pb-1">
+              <span className="w-16 text-gray-500">To</span>
+              <input
+                type="email"
+                placeholder={record.email || 'Enter recipient email'}
+                className="flex-1 outline-none"
+                value={record.email || 'Enter recipient email'}
+              />
+            </div>
+
+            {/* Subject */}
+            <div className="flex items-center border-b pb-1">
+              <span className="w-16 text-gray-500">Subject</span>
+              <input
+                type="text"
+                placeholder="Enter subject"
+                className="flex-1 outline-none"
+              />
+            </div>
+          </div>
+
+          {/* Editable Body */}
+          <div className="px-4 py-3 min-h-[180px] max-h-[300px] overflow-y-auto border-b">
+            <textarea
+              placeholder="Write your message..."
+              className="w-full h-[200px] outline-none resize-none"
+            ></textarea>
+          </div>
+
+          {/* Footer Buttons */}
+          <div className="flex items-center justify-between px-4 py-3">
+            <Button type="primary">Send</Button>
+
+            <div className="flex gap-3 text-gray-600 text-lg">
+              <button className="hover:text-black">📎</button>
+              <button className="hover:text-black">🖼️</button>
+              <button className="hover:text-black">😊</button>
+              <button className="hover:text-black">⋯</button>
+            </div>
+          </div>
+        </div>
       </Modal>
+
           
 
           <Popover
